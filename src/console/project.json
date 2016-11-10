@@ -24,7 +24,7 @@
   },
   "tools": {
     "dotnet-compile-vbc": {
-      "version": "1.0.0-preview2-0009",
+      "version": "1.0.0-preview2-0012",
       "imports": "dnxcore50"
     }
   }

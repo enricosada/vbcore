@@ -97,13 +97,22 @@ namespace Microsoft.DotNet.Tools.Compiler.Vbc
                 // RENAME things
                 var outExe = outputName.Value();
                 outExe = outExe + ".exe";
-                Console.WriteLine(outExe);
                 if (!string.IsNullOrEmpty(outExe) && File.Exists(outExe))
                 {
-                    Console.WriteLine(outExe);
                     string outDll = outExe.Replace(".dll.exe", ".dll");
-                    Console.WriteLine(outDll);
+                    if (File.Exists(outDll))
+                    {
+                        File.Delete(outDll);
+                    }
                     System.IO.File.Move(outExe, outDll);
+
+                    string outPdbOrig = outExe.Replace(".dll.exe", ".dll.pdb");
+                    string outPdb = outPdbOrig.Replace(".dll.pdb", ".pdb");
+                    if (File.Exists(outPdb))
+                    {
+                        File.Delete(outPdb);
+                    }
+                    System.IO.File.Move(outPdbOrig, outPdb);
                 }
 
                 return result.ExitCode;
