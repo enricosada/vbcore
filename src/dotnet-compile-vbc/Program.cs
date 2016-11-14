@@ -94,6 +94,27 @@ namespace Microsoft.DotNet.Tools.Compiler.Vbc
                     .ForwardStdOut()
                     .Execute();
 
+                // RENAME things
+                var outExe = outputName.Value();
+                outExe = outExe + ".exe";
+                if (!string.IsNullOrEmpty(outExe) && File.Exists(outExe))
+                {
+                    string outDll = outExe.Replace(".dll.exe", ".dll");
+                    if (File.Exists(outDll))
+                    {
+                        File.Delete(outDll);
+                    }
+                    System.IO.File.Move(outExe, outDll);
+
+                    string outPdbOrig = outExe.Replace(".dll.exe", ".dll.pdb");
+                    string outPdb = outPdbOrig.Replace(".dll.pdb", ".pdb");
+                    if (File.Exists(outPdb))
+                    {
+                        File.Delete(outPdb);
+                    }
+                    System.IO.File.Move(outPdbOrig, outPdb);
+                }
+
                 return result.ExitCode;
             });
 
@@ -187,6 +208,8 @@ namespace Microsoft.DotNet.Tools.Compiler.Vbc
             {
                 commonArgs.Add("-delaysign");
             }
+
+            commonArgs.Add("-vbruntime*");
 
             if (options.PublicSign == true)
             {

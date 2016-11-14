@@ -23,7 +23,8 @@ dotnet -v build
 
 REM build the vb console app with normal vbc.exe
 REM will fail, but is ok
-set DOTNET_VBC_PATH=C:\Windows\Microsoft.NET\Framework\v4.0.30319\vbc.exe
+REM set DOTNET_VBC_PATH=C:\Windows\Microsoft.NET\Framework\v4.0.30319\vbc.exe
+set DOTNET_VBC_PATH=c:\Program Files (x86)\MSBuild\14.0\Bin\vbc.exe
 set DOTNET_VBC_EXEC=RUN
 dotnet -v build
 

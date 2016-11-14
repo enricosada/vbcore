@@ -1,10 +1,11 @@
 {
-    "version": "1.0.0-preview2-0006",
+    "version": "1.0.0-preview2-0012",
     "buildOptions": {
         "emitEntryPoint": true
     },
 
     "dependencies": {
+        "Microsoft.NET.Compilers.netcore": "2.0.0-beta4",
         "Microsoft.DotNet.ProjectModel": "1.0.0-*",
         "Microsoft.DotNet.Compiler.Common": "1.0.0-preview2-*",
         "Microsoft.DotNet.Cli.Utils": "1.0.0-preview2-*"
