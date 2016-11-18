@@ -41,8 +41,10 @@ namespace Microsoft.DotNet.Tools.Compiler
             commandLineOptions.PlatformOption =
                 AddOption(app, PlatformOptionName, "The target platform", CommandOptionType.SingleValue);
 
+            /* // The following is not available in VBC.
             commandLineOptions.AllowUnsafeOption =
                 AddOption(app, AllowUnsafeOptionName, "Allow unsafe code", CommandOptionType.BoolValue);
+            */
 
             commandLineOptions.WarningsAsErrorsOption =
                 AddOption(app, WarningsAsErrorsOptionName, "Turn all warnings into errors", CommandOptionType.BoolValue);
