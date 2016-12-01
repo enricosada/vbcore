@@ -10,8 +10,4 @@ Namespace ConsoleApplication
 
     End Module
 
-<<<<<<< HEAD
 End Namespace
-=======
-End Namespace
->>>>>>> refs/remotes/origin/Cleanup
