@@ -95,6 +95,7 @@ namespace Microsoft.DotNet.Tools.Compiler.Vbc
                     .Execute();
 
                 // RENAME things
+                // This is currently necessary as the BUILD task of the dotnet executable expects (at this stage) a .DLL (not an EXE).
                 var outExe = outputName.Value();
                 outExe = outExe + ".exe";
                 if (!string.IsNullOrEmpty(outExe) && File.Exists(outExe))
@@ -151,7 +152,7 @@ namespace Microsoft.DotNet.Tools.Compiler.Vbc
 
             if (options.Defines != null)
             {
-                commonArgs.AddRange(options.Defines.Select(def => $"-d:{def}"));
+                commonArgs.AddRange(options.Defines.Select(def => $"-d:{def}")); // short for -define:
             }
 
             if (options.SuppressWarnings != null)
@@ -175,10 +176,12 @@ namespace Microsoft.DotNet.Tools.Compiler.Vbc
                 commonArgs.Add($"-platform:{options.Platform}");
             }
 
+            /* // The following is not available in VBC.
             if (options.AllowUnsafe == true)
             {
                 commonArgs.Add("-unsafe");
             }
+            */
 
             if (options.WarningsAsErrors == true)
             {
@@ -209,7 +212,7 @@ namespace Microsoft.DotNet.Tools.Compiler.Vbc
                 commonArgs.Add("-delaysign");
             }
 
-            commonArgs.Add("-vbruntime*");
+            commonArgs.Add("-vbruntime*"); // This appears to be necessary; without or other usage fails.
 
             if (options.PublicSign == true)
             {
@@ -223,7 +226,7 @@ namespace Microsoft.DotNet.Tools.Compiler.Vbc
 
             if (options.EmitEntryPoint != true)
             {
-                commonArgs.Add("-t:library");
+                commonArgs.Add("-t:library"); // short for -target:
             }
 
             if (string.IsNullOrEmpty(options.DebugType))
@@ -244,17 +247,24 @@ namespace Microsoft.DotNet.Tools.Compiler.Vbc
 
         private static string GetLanguageVersion(string languageVersion)
         {
+
+//TODO: Not sure how this should be translated to VB... guessing just "vb" instead of the original "csharp".
+
             // project.json supports the enum that the roslyn APIs expose
-            if (languageVersion?.StartsWith("csharp", StringComparison.OrdinalIgnoreCase) == true)
+            if (languageVersion?.StartsWith("vb", StringComparison.OrdinalIgnoreCase) == true)
             {
                 // We'll be left with the number csharp6 = 6
-                return languageVersion.Substring("csharp".Length);
+                return languageVersion.Substring("vb".Length);
             }
             return languageVersion;
         }
 
         private static Command RunVbc(string[] vbcArgs)
         {
+
+//TODO: Need to utilize the .NET Core vbc.exe...
+// For now, we are using the .NET Framework vbc.exe instead of the .NET Core vbc.exe as we are not yet sure where that is located/available.
+
             var vbcEnvExe = Environment.GetEnvironmentVariable("DOTNET_VBC_PATH");
             var exec = Environment.GetEnvironmentVariable("DOTNET_VBC_EXEC")?.ToUpper() ?? "COREHOST";
             
