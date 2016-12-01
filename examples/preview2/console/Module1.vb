@@ -1,7 +1,13 @@
-﻿Module Module1
+﻿Imports System
 
-    Sub Main()
-        System.Console.WriteLine("ciao!")
-    End Sub
+Namespace ConsoleApplication
 
-End Module
+    Module Module1
+
+        Sub Main()
+            Console.WriteLine("Hello World!")
+        End Sub
+
+    End Module
+
+End Namespace
