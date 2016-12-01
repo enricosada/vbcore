@@ -1,9 +1,11 @@
 # How to
 
-- `set DOTNET_VBC_PATH=c:\Program Files (x86)\MSBuild\14.0\Bin\vbc.exe`
-- `set DOTNET_VBC_EXEC=RUN`
+Assuming you've followed all of the instructions for getting the compiler side working...
 
-And now let's build .net core app, with the .NET Core Sdk
+Currently the "dotnet new" functionality is not working; however, it's pretty simple to accomplish the same
+outcome... just copy the two files in the "console" folder to a new folder.
+
+And now let's build .net core app, with the .NET Core
 
 - Skip the `dotnet new`; to being a project, you need the project.json and Moldule1.vb in the current folder. 
 
@@ -12,4 +14,3 @@ And now let's build .net core app, with the .NET Core Sdk
 - `dotnet run`
 - `dotnet pack`
 - `dotnet publish`
-
